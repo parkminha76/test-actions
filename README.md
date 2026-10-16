@@ -606,57 +606,152 @@ Tool 업무 서비스는 최상위 `status`를 포함한 JSON 문자열을 반�
 <summary>폴더별 역할과 주요 파일 펼쳐 보기</summary>
 
 ```text
-.
-├─ main.py                       # Streamlit 진입점, check-all 명령
-├─ pyproject.toml / uv.lock       # Python 의존성
-├─ .python-version               # Python 3.12
-├─ .env.example                  # 환경변수 예시
-├─ .streamlit/config.toml         # 화면 테마·폰트
+SKN35-3rd-3Team/
+├─ .streamlit/
+│  └─ config.toml                               # Streamlit 테마·폰트
 ├─ data/
-│  ├─ raw/                       # 수집 원본
-│  ├─ processed/                 # 정제 데이터와 자료 검토·평가 결과
-│  └─ chunk/                     # 검색·임베딩 입력
-│     ├─ laws/
-│     ├─ precedents/
-│     ├─ guides/
-│     └─ consumer_sources/
+│  ├─ chunk/                                    # 검색·임베딩 입력
+│  │  ├─ consumer_sources/                      # 소비자·공식 안내 청크
+│  │  ├─ guides/                                # 안내서별 청크 JSON
+│  │  ├─ laws/                                  # 법령 청크
+│  │  └─ precedents/                            # 판례 청크
+│  ├─ processed/                                # 정제 자료·검토 기록
+│  │  ├─ consumer_sources/
+│  │  ├─ guides/
+│  │  ├─ laws/
+│  │  ├─ precedents/
+│  │  └─ retrieval_evaluation/                  # 데이터·분야별 검토 보고서
+│  └─ raw/                                      # 수집 원본
+│     ├─ consumer_sources/                      # 소비자·공식 안내 원본
+│     ├─ guides/                                # 안내서 원본
+│     ├─ law_appendices/                        # 별표·부록 원문
+│     ├─ law_history/                           # 과거 법령·버전 자료
+│     ├─ laws/                                  # 법령 원문
+│     └─ precedents/                            # 판례 원문
 ├─ src/
-│  ├─ app/                       # 상담·분석·상세·안내 화면 및 스타일
-│  │  ├─ Chat.py                 # 세션 초기화·상담 그래프 실행
-│  │  ├─ views.py                # 화면 구성·기록 관리
-│  │  ├─ progress.py             # 그래프 이벤트의 진행 상태 변환
-│  │  ├─ report_summary.py       # 핵심 요약과 발췌 대체 처리
-│  │  ├─ conversation_history.py # 기록 제목·그룹화
-│  │  ├─ pdf_utils.py            # PDF → 이미지
-│  │  └─ page_navigation.*       # 고정 헤더·Top 버튼
-│  ├─ graph/                     # 메인·RAG·MCP 그래프와 노드·State
-│  ├─ prompt/                    # 분류·질문 재작성·생성·이미지 프롬프트
-│  ├─ mcp_tools/                 # MCP 서버·클라이언트·도구 계약
-│  ├─ vector_db/                 # Qdrant 연결·적재·검색·검증
-│  ├─ const/                     # 경로·모델·환경·벡터 규격
-│  ├─ scripts/                   # 수집·정제·청킹·환경·DB·MCP 명령
-│  │  └─ tests/                  # 데이터 검증 test_*_pmh.py
-│  ├─ query_rewriter.py          # 질문 재작성
-│  ├─ multi_query.py             # 확장 질의와 유형별 보강 검색
-│  ├─ rrf.py / rerank.py         # 후보 결합·재정렬
-│  ├─ generator.py               # 컨텍스트 구성·답변 생성·출처 형식 검사
-│  ├─ citation.py                # 별도 인용 구조 검사
-│  ├─ validation.py              # 별도 검색 결과 검증 유틸리티
-│  └─ retriever.py / embedder.py / vectorstore.py
-├─ tests/                        # 공용 기능 테스트·RAG 통합·평가 실행기
-├─ test/
-│  ├─ rag_test/                  # 검색 단계별 비교·평가 설정과 보고서
-│  └─ rerank/                    # 재정렬·점수 분포·임계값 평가
-├─ docs/                         # 데이터 인계서·평가 안내·성능 보고서
-├─ rag_evaluation_cases.review.json  # 공통 AI 검수 참고 질문 20개
-├─ rag_evaluation_cases_list.json    # 확장 평가 질문 70개
-├─ mcp_live_check.py              # 별도 MCP 점검 스크립트
-├─ PLAN.md / PLAN_jb.md           # 계획·진행 문서
-├─ README_jb.md                  # 벡터 DB·MCP 상세 실행 안내
-└─ tmp/                         # 작업·UI 점검용 보조 파일
+│  ├─ app/                                      # Streamlit 화면
+│  │  ├─ Chat.py                                # 세션·상담 그래프 실행
+│  │  ├─ README.md
+│  │  ├─ chat.css                               # 상담 화면
+│  │  ├─ conversation_history.py                # 상담 기록 분류
+│  │  ├─ dark.css                               # 다크 테마
+│  │  ├─ evidence.py                            # 검증된 인용·검색 후보 구분
+│  │  ├─ loading.py                             # 로딩 그래픽
+│  │  ├─ page_navigation.css
+│  │  ├─ page_navigation.js
+│  │  ├─ page_navigation.py                     # 고정 헤더·Top 버튼 연결
+│  │  ├─ palette.css                            # 강조색·인터랙션
+│  │  ├─ pdf_utils.py                           # PDF → 이미지
+│  │  ├─ progress.py                            # 노드 이벤트·진행 상태
+│  │  ├─ report_summary.py                      # 핵심 요약·짧은 발췌
+│  │  ├─ styles.css                             # 공통 레이아웃
+│  │  └─ views.py                               # 상담·분석·상세·이용 안내
+│  ├─ graph/                                    # LangGraph State·그래프·노드
+│  │  ├─ mcp_graph/                             # MCP 하위 그래프와 도구 노드
+│  │  │  ├─ mcp_get_collection_info.py
+│  │  │  ├─ mcp_graph.py                        # MCP 하위 그래프
+│  │  │  ├─ mcp_health_check_node.py
+│  │  │  ├─ mcp_lookup_document.py
+│  │  │  ├─ mcp_search_documents.py
+│  │  │  └─ mcp_validation_node.py
+│  │  ├─ rag_graph/                             # RAG 하위 그래프와 노드
+│  │  │  ├─ citation_node.py                    # 별도 인용 검사 노드
+│  │  │  ├─ multi_query_node.py
+│  │  │  ├─ query_rewrite_node.py
+│  │  │  ├─ rag_graph.py                        # RAG 하위 그래프
+│  │  │  ├─ rerank_node.py
+│  │  │  ├─ rrf_node.py
+│  │  │  └─ validation_node.py                  # 검색 근거·재시도 검사
+│  │  ├─ general_agent.py                       # 일반 응답
+│  │  ├─ generator_node.py                      # 답변 생성 노드
+│  │  ├─ image_node.py                          # 이미지 사실 추출
+│  │  ├─ state.py                               # 공통 상태
+│  │  └─ workflow.py                            # 메인 분기·연결
+│  ├─ rag/                                      # RAG 검색·재정렬·생성 구현
+│  │  ├─ generator.py                           # 컨텍스트·생성·출처 형식 검사
+│  │  ├─ multi_query.py                         # 질의 확장·유형별 검색
+│  │  ├─ query_rewriter.py                      # 검색 질문 재작성
+│  │  ├─ rerank.py                              # 후보 재정렬
+│  │  ├─ retrieval_evaluation.py                # 검색 평가 지표
+│  │  ├─ retriever.py                           # 검색 인터페이스
+│  │  ├─ rrf.py                                 # 여러 검색 목록 결합
+│  │  └─ validation.py                          # 검색 결과 검증
+│  ├─ prompt/                                   # 단계별 프롬프트
+│  │  ├─ classify_prompt.py
+│  │  ├─ general_prompt.py
+│  │  ├─ generator_prompt.py
+│  │  ├─ image_prompt.py
+│  │  ├─ multi_query_prompt.py
+│  │  └─ query_rewriter_prompt.py
+│  ├─ mcp_tools/                                # MCP 도구·통신
+│  │  ├─ README.md
+│  │  ├─ client.py                              # MCP 클라이언트
+│  │  ├─ contracts.py                           # 입력·JSON 반환 계약
+│  │  ├─ nodes.py                               # 도구 결과·상태 변환
+│  │  ├─ runtime.py                             # SDK 도구 등록
+│  │  └─ server.py                              # 도구 업무 서비스
+│  ├─ vector_db/                                # Qdrant 적재·검색
+│  │  ├─ README.md
+│  │  ├─ bootstrap.py                           # 공용 검색기 조립
+│  │  ├─ chunk_loader.py                        # 로컬 청크 입력 검증
+│  │  ├─ ingestion.py                           # 임베딩·분할·Upsert
+│  │  ├─ payload_indexes.py                     # Payload 인덱스 규격
+│  │  ├─ qdrant_store.py                        # Qdrant 조회·저장
+│  │  ├─ search_bootstrap.py                    # 검색 비교·재정렬 연결
+│  │  ├─ sparse_embedder.py                     # BM25 Sparse 생성
+│  │  └─ validation.py                          # DB 적재 결과 대조
+│  ├─ const/                                    # 경로·모델·환경 규격
+│  │  ├─ config.py
+│  │  ├─ model.py
+│  │  ├─ qdrant_config.py
+│  │  └─ vector_data_contract.py
+│  ├─ scripts/                                  # 수집·정제·청킹·실행 명령
+│  │  ├─ tests/                                 # 수집·전처리 데이터 검증
+│  │  ├─ chunk_consumer_sources.py
+│  │  ├─ chunk_guides.py
+│  │  ├─ chunk_laws.py
+│  │  ├─ chunk_metadata.py
+│  │  ├─ collect_consumer_sources.py
+│  │  ├─ collect_laws.py
+│  │  ├─ collect_precedents.py
+│  │  ├─ embedding_probe.py                     # 임베딩 점검
+│  │  ├─ environment_setup.py
+│  │  ├─ law_api_test.py                        # 법령 API 점검
+│  │  ├─ mcp_server.py
+│  │  ├─ preprocess_consumer_sources.py
+│  │  ├─ preprocess_guides.py
+│  │  ├─ preprocess_laws.py
+│  │  ├─ preprocess_precedents.py
+│  │  ├─ qdrant_ingest.py
+│  │  ├─ qdrant_setup.py
+│  │  └─ review_pilates_law_versions.py         # 필라테스 관련 법령 버전 검토
+│  ├─ citation.py                               # 별도 인용 구조 검사
+│  ├─ embedder.py                               # 임베딩 제공자
+│  ├─ history.py                                # 대화 이력 포맷
+│  └─ vectorstore.py                            # 벡터 검색·저장 계약
+├─ docs/
+│  ├─ rag_performance/                          # 처리 시간·성능 비교
+│  │  ├─ rag_performance_after.json             # 개선 후 성능 기록
+│  │  ├─ rag_performance_before.json            # 개선 전 성능 기록
+│  │  └─ rag_performance_comparison.md          # 성능 비교 보고서
+│  ├─ evaluation-cases-notes.md
+│  ├─ rag_rerank_evaluation_guide.md
+│  └─ 데이터_인계서_pmh.md
+├─ tmp/                                         # 원격 dev에 남아 있는 작업·UI 점검 파일
+├─ main.py                                      # Streamlit 진입점·check-all
+├─ mcp_live_check.py                            # 별도 MCP 점검
+├─ rag_evaluation_cases.review.json             # 공통 평가 입력
+├─ rag_evaluation_cases_list.json               # 확장 평가 입력
+├─ PLAN.md
+├─ PLAN_jb.md
+├─ README.md                                    # 프로젝트 통합 안내
+├─ README_jb.md                                 # 벡터 DB·MCP 상세 안내
+├─ .env.example                                 # 환경변수 예시
+├─ .gitignore
+├─ .python-version                              # Python 3.12
+├─ pyproject.toml
+└─ uv.lock
 ```
-
-`tests/`와 `test/`는 별도 경로입니다. 실행 명령에서 구분해야 합니다. 계획서·하위 README에는 과거 상태가 남아 있을 수 있으므로 실제 연결은 `src/graph/workflow.py`를 기준으로 확인합니다.
 
 </details>
 
