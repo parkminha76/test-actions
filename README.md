@@ -157,25 +157,6 @@ LAW:MATE는 **상황 입력 → 관련 자료 검색 → 답변 확인 → 근�
 
 ### 구성 요소의 연결
 
-```mermaid
-flowchart LR
-    U["사용자 · 질문과 첨부파일"] --> UI["Streamlit"]
-    UI --> IMG["이미지 설명 생성 · 첨부 시"]
-    IMG --> ROUTE["질문 분류 · 대화 이력"]
-    UI --> ROUTE
-    ROUTE --> GENERAL["일반 응답 · 범위 밖 안내"]
-    ROUTE --> RAG["RAG 검색 그래프"]
-    ROUTE --> MCP["MCP 조회 그래프"]
-    RAG --> GEN["답변 생성 · 출처 형식 검사"]
-    MCP --> GEN
-    GEN --> UI
-    GENERAL --> UI
-    RAG --> Q["Qdrant · Dense + BM25"]
-    MCP --> Q
-    RAW["공식 원본"] --> CLEAN["정제 · 청킹 · 메타데이터"]
-    CLEAN --> EMB["Dense 임베딩 · Sparse 생성"]
-    EMB --> Q
-```
 <img width="1071" height="538" alt="image" src="https://github.com/user-attachments/assets/2b95fdb3-d0ae-41fa-a001-a6bb0593bdac" />
 
 OpenAI 모델은 질문 분류·이미지 설명·재작성·생성에 사용합니다. 대화 상태는 Streamlit 세션과 LangGraph `InMemorySaver`로 유지합니다. 기본 상담은 별도 REST API 서버 없이 Python에서 그래프를 호출합니다.
