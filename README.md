@@ -139,7 +139,8 @@ LAW:MATE는 **상황 입력 → 관련 자료 검색 → 답변 확인 → 근�
 
 ### 상담 화면 구조
 
-<img width="1591" height="819" alt="image" src="https://github.com/user-attachments/assets/7119de98-5e67-4508-bf64-53761fada2ed" />
+<img width="1585" height="814" alt="image" src="https://github.com/user-attachments/assets/54e1088b-9c47-4b68-b341-c74c081978e3" />
+
 
 
 ### 진행 표시와 응답 갱신
