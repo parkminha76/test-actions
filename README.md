@@ -176,6 +176,7 @@ flowchart LR
     CLEAN --> EMB["Dense 임베딩 · Sparse 생성"]
     EMB --> Q
 ```
+<img width="1071" height="538" alt="image" src="https://github.com/user-attachments/assets/2b95fdb3-d0ae-41fa-a001-a6bb0593bdac" />
 
 OpenAI 모델은 질문 분류·이미지 설명·재작성·생성에 사용합니다. 대화 상태는 Streamlit 세션과 LangGraph `InMemorySaver`로 유지합니다. 기본 상담은 별도 REST API 서버 없이 Python에서 그래프를 호출합니다.
 
