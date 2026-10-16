@@ -1,11 +1,11 @@
 <div align="center">
+<img width="364" height="112" alt="image" src="https://github.com/user-attachments/assets/0ed9687e-dc35-40ba-a929-2cc2c36d49f0" />
 
 # LAW:MATE
 
 ### 법률 용어 대신, 당신의 상황을 이야기하세요.
 
 공식 법령·판례·공공기관 자료를 검색해 생활 속 법률 고민을 이해하도록 돕는 RAG 챗봇
-<img width="364" height="112" alt="image" src="https://github.com/user-attachments/assets/0ed9687e-dc35-40ba-a929-2cc2c36d49f0" />
 
 
 **SK Networks Family AI Camp 35기 · 3차 프로젝트 · 3팀**
